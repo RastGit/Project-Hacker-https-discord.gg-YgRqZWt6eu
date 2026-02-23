@@ -1,0 +1,98 @@
+/* styles.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background: linear-gradient(135deg, #000000, #2c003e, #000000); /* Czarny i ciemny fioletowy gradient */
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite; /* Powolna zmiana tła */
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.navbar {
+    background-color: #1a1a1a; /* Ciemny czarny szary lekko fioletowy */
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.5s ease; /* Smooth animacja dla paska */
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar li {
+    margin: 0 20px;
+}
+
+.navbar a {
+    display: block;
+    color: #d3d3d3; /* Lekko fioletowy odcień szarego */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease; /* Mega smooth animacje */
+}
+
+.navbar a:hover {
+    color: #8b008b; /* Ciemny fioletowy */
+    transform: scale(1.1);
+}
+
+.section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease; /* Mega smooth animacje dla sekcji */
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    transition: color 0.5s ease;
+}
+
+h1:hover {
+    color: #8b008b; /* Fioletowy akcent */
+}
+
+p {
+    font-size: 1.2em;
+    max-width: 800px;
+    text-align: center;
+}
+
+.blurred {
+    filter: blur(2px); /* Efekt zatarcia (blur) */
+    transition: filter 0.5s ease; /* Smooth animacja blur */
+}
+
+.blurred:hover {
+    filter: blur(0);
+}
+
+/* Dla optymalizacji: możesz minifikować ten plik ręcznie lub użyć narzędzi jak CSSNano */
