@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rast Hub</title>
+  <title>Dark Neon Hub</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,6 +31,15 @@
 <section id="textbypass" class="section">
   <h1>TextBypass</h1>
   <p>Sekcja do omijania filtrów, detektorów AI i innych ograniczeń tekstowych.</p>
+  <textarea id="inputText" placeholder="Wklej tekst do bypassu" rows="5" cols="50"></textarea>
+  <div class="options">
+    <label><input type="checkbox" id="useNumbers"> Numbers (użyj numerów jak leet speak)</label>
+    <label><input type="checkbox" id="useFont"> Font (różne czcionki, np. math bold)</label>
+    <label><input type="checkbox" id="useSimilar"> Similar (podobne znaki, homoglyphs)</label>
+  </div>
+  <button id="bypassBtn">Bypass Text</button>
+  <textarea id="outputText" placeholder="Zbypassowany tekst" rows="5" cols="50" readonly></textarea>
+  <button id="copyBtn">Copy 📋</button>
 </section>
 
 <section id="ai" class="section">
@@ -38,76 +47,7 @@
   <p>Prompty, modele, triki, fine-tuning – wszystko co związane z sztuczną inteligencją.</p>
 </section>
 
-<div class="lightning-container">
-  <svg class="lightning-svg" viewBox="0 0 140 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <!-- Bardzo mocny neon glow – kilka warstw dla grubości i poświaty -->
-      <filter id="neon-glow-heavy" x="-100%" y="-100%" width="300%" height="300%">
-        <feGaussianBlur stdDeviation="8"  result="blur1"/>
-        <feGaussianBlur stdDeviation="18" result="blur2"/>
-        <feGaussianBlur stdDeviation="32" result="blur3"/>
-        <feMerge>
-          <feMergeNode in="blur3"/>
-          <feMergeNode in="blur2"/>
-          <feMergeNode in="blur1"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
-
-      <!-- Gradient neonowej rurki: jasny fiolet/róż → ciemny fiolet -->
-      <linearGradient id="neon-tube-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%"   stop-color="#ff4da6" />   <!-- jasny różowo-fiolet na górze -->
-        <stop offset="30%"  stop-color="#e040fb" />
-        <stop offset="60%"  stop-color="#aa00ff" />   <!-- średni fiolet -->
-        <stop offset="100%" stop-color="#4c0080" />   <!-- ciemny fiolet w rdzeniu -->
-      </linearGradient>
-
-      <!-- Wewnętrzne światło neonu (biała + jasnofioletowa poświata wewnątrz rurki) -->
-      <radialGradient id="inner-neon-glow" cx="50%" cy="40%" r="110%">
-        <stop offset="0%" stop-color="#ffffff88" />
-        <stop offset="35%" stop-color="#d7bfff66" />
-        <stop offset="100%" stop-color="#00000000" />
-      </radialGradient>
-    </defs>
-
-    <!-- Nowy kształt – bardziej klasyczny neonowy lightning bolt (grubszy, zygzakowaty jak na Twoim zdjęciu) -->
-    <path
-      d="M 70 20 
-         L 40 60 
-         L 100 60 
-         L 55 105 
-         L 95 105 
-         L 65 145 
-         L 110 145 
-         L 75 185"
-      fill="none"
-      stroke="url(#neon-tube-grad)"
-      stroke-width="28"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      filter="url(#neon-glow-heavy)"
-    />
-
-    <!-- Wewnętrzna warstwa – imitacja światła w neonowej rurce -->
-    <path
-      d="M 70 20 
-         L 40 60 
-         L 100 60 
-         L 55 105 
-         L 95 105 
-         L 65 145 
-         L 110 145 
-         L 75 185"
-      fill="none"
-      stroke="url(#inner-neon-glow)"
-      stroke-width="14"
-      opacity="0.9"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
-</div>
-
+<script src="ai_bypass.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
