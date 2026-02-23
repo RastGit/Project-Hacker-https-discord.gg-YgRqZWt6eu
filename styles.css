@@ -46,11 +46,29 @@ body {
     padding: 14px 16px;
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease; /* Mega smooth animacje */
+    position: relative;
 }
 
 .navbar a:hover {
     color: #8b008b; /* Ciemny fioletowy */
     transform: scale(1.1);
+}
+
+.navbar a.active {
+    color: #fff;
+}
+
+.navbar a.active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 20px);
+    height: 40px;
+    background-color: #000; /* Całkowicie czarny kształt pastylki */
+    border-radius: 20px; /* Pill-shaped */
+    z-index: -1;
 }
 
 .section {
@@ -86,13 +104,54 @@ p {
     text-align: center;
 }
 
-.blurred {
-    filter: blur(2px); /* Efekt zatarcia (blur) */
-    transition: filter 0.5s ease; /* Smooth animacja blur */
+/* Responsywność dla telefonu */
+@media (max-width: 768px) {
+    .navbar ul {
+        justify-content: flex-start;
+        overflow-x: auto; /* Przewijany na boki */
+        white-space: nowrap;
+        padding: 0 10px;
+    }
+
+    .navbar li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    .section {
+        padding: 60px 10px 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1em;
+    }
 }
 
-.blurred:hover {
-    filter: blur(0);
+/* Znak pioruna w lewym dolnym rogu */
+.lightning-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 2em;
+    color: #8b008b; /* Fioletowy w stylu menu */
+    z-index: 1000;
+    animation: rotateWithPause 3s linear infinite; /* Obrót 360° w 1s, pauza 2s, repeat */
+}
+
+@keyframes rotateWithPause {
+    0% {
+        transform: rotate(0deg);
+    }
+    33% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Dla optymalizacji: możesz minifikować ten plik ręcznie lub użyć narzędzi jak CSSNano */
