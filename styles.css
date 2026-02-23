@@ -68,6 +68,8 @@ body {
   z-index: 1;
   box-shadow: 0 0 24px rgba(0,0,0,0.8);
   pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);   /* <-- to ustawia pastylkę dokładnie na środku tekstu */
 }
 
 .section {
@@ -104,28 +106,28 @@ p {
   opacity: 0.93;
 }
 
-/* Neonowy piorun SVG */
+/* Neonowy piorun – grubszy, bardziej 3D */
 .lightning-container {
   position: fixed;
   bottom: 30px;
   left: 30px;
-  width: 90px;
-  height: 145px;
+  width: 100px;
+  height: 160px;
   z-index: 1000;
-  perspective: 1400px;
+  perspective: 1600px;
 }
 
 .lightning-svg {
   width: 100%;
   height: 100%;
-  animation: spin3D 16s linear infinite;
-  filter: drop-shadow(0 0 32px #bb00ff66);
+  animation: spin3D 18s linear infinite;
+  filter: drop-shadow(0 0 40px #bb00ff88);
   transform-style: preserve-3d;
 }
 
 @keyframes spin3D {
-  from { transform: rotateY(0deg) rotateX(10deg); }
-  to   { transform: rotateY(360deg) rotateX(10deg); }
+  from { transform: rotateY(0deg) rotateX(15deg) scale(1); }
+  to   { transform: rotateY(360deg) rotateX(15deg) scale(1); }
 }
 
 /* Responsywność */
@@ -145,8 +147,8 @@ p {
   .lightning-container {
     bottom: 20px;
     left: 20px;
-    width: 70px;
-    height: 110px;
+    width: 80px;
+    height: 130px;
   }
 
   .section {
