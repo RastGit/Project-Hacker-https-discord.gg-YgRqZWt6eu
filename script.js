@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // ───────────────────────────────────────────────
-  //          Nawigacja + animacje sekcji
-  // ───────────────────────────────────────────────
+  // ────────────────────────────────
+  //          NAWIGACJA + ANIMACJE
+  // ────────────────────────────────
 
   const sections = document.querySelectorAll('.section');
   const links = document.querySelectorAll('.navbar a');
@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!target || !indicator) return;
     const rect = target.getBoundingClientRect();
     const navRect = target.closest('.navbar').getBoundingClientRect();
-    indicator.style.width = `${rect.width + 16}px`;
-    indicator.style.left  = `${rect.left - navRect.left - 8}px`;
+    indicator.style.width = `${rect.width + 20}px`;
+    indicator.style.left  = `${rect.left - navRect.left - 10}px`;
   }
 
   links.forEach(link => {
@@ -28,9 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
-      if (scrollY >= section.offsetTop - 180) {
-        current = section.getAttribute('id');
-      }
+      if (scrollY >= section.offsetTop - 200) current = section.getAttribute('id');
     });
     links.forEach(link => {
       link.classList.remove('active');
@@ -43,161 +41,153 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { threshold: 0.18 });
+  }, { threshold: 0.2 });
 
   sections.forEach(sec => observer.observe(sec));
 
-  const initialActive = document.querySelector('.navbar a.active') || links[0];
-  if (initialActive) {
-    initialActive.classList.add('active');
-    moveIndicator(initialActive);
+  const initial = document.querySelector('.navbar a.active') || links[0];
+  if (initial) {
+    initial.classList.add('active');
+    moveIndicator(initial);
   }
 
-  window.addEventListener('resize', () => {
-    moveIndicator(document.querySelector('.navbar a.active'));
-  });
+  window.addEventListener('resize', () => moveIndicator(document.querySelector('.navbar a.active')));
 
-  // ───────────────────────────────────────────────
-  //          TEXTBYPASS – logika (wywołuje AI bypass)
-  // ───────────────────────────────────────────────
+  // ────────────────────────────────
+  //          TEXTBYPASS (prosty)
+  // ────────────────────────────────
 
-  const input = document.getElementById('inputText');
-  const output = document.getElementById('outputText');
-  const bypassBtn = document.getElementById('bypassBtn');
-  const copyBtn = document.getElementById('copyBtn');
+  const tbInput = document.getElementById('inputText');
+  const tbOutput = document.getElementById('outputText');
+  const tbBtn = document.getElementById('bypassBtn');
+  const tbCopy = document.getElementById('copyBtn');
 
-  bypassBtn.addEventListener('click', async () => {
-    const options = {
-      numbers: document.getElementById('useNumbers').checked,
-      font: document.getElementById('useFont').checked,
-      similar: document.getElementById('useSimilar').checked,
-      advanced: document.getElementById('useAdvanced').checked
-    };
-    output.value = await advancedBypass(input.value, options);  // Wywołuje funkcję z ai_bypass.js
-  });
+  if (tbBtn) {
+    tbBtn.addEventListener('click', () => {
+      let text = tbInput.value.trim();
+      if (!text) {
+        tbOutput.value = "Wpisz tekst...";
+        return;
+      }
 
-  copyBtn.addEventListener('click', () => {
-    if (!output.value.trim()) return alert("Nic do skopiowania!");
-    navigator.clipboard.writeText(output.value)
-      .then(() => alert("Skopiowano!"))
-      .catch(() => {
-        output.select();
-        alert("Nie udało się – zaznacz i Ctrl+C ręcznie.");
-      });
-  });
-});
-// ───────────────────────────────────────────────
-//          DISCORD CHAT – symulacja
-// ───────────────────────────────────────────────
-
-const avatarPreview = document.getElementById('avatarPreview');
-const avatarInput = document.getElementById('avatarInput');
-const usernameInput = document.getElementById('usernameInput');
-const messageInput = document.getElementById('messageInput');
-const sendBtn = document.getElementById('sendMessageBtn');
-const chatMessages = document.getElementById('chatMessages');
-const copyInviteBtn = document.querySelector('.copy-invite-btn');
-
-// Domyślny awatar
-const defaultAvatar = "https://cdn.discordapp.com/attachments/1475479234519760927/1475846320597106739/lv_0_20260224142607.jpg?ex=699ef87e&is=699da6fe&hm=fcd8285a1b8ee154a63334579d360fc6e4d655746bb12f436b67d414ca63e6dd&";
-
-// Zmiana awatara
-document.getElementById('avatarUpload').addEventListener('click', () => {
-  avatarInput.click();
-});
-
-avatarInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      avatarPreview.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-// Kopiuj invite
-copyInviteBtn.addEventListener('click', () => {
-  navigator.clipboard.writeText("https://discord.gg/YgRqZWt6eu")
-    .then(() => alert("Link skopiowany!"))
-    .catch(() => alert("Nie udało się skopiować – zaznacz ręcznie"));
-});
-
-// Wysyłanie wiadomości
-let hereCooldown = false;
-
-sendBtn.addEventListener('click', sendMessage);
-messageInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-function sendMessage() {
-  const text = messageInput.value.trim();
-  if (!text) return;
-
-  // Blokada @everyone
-  if (text.toLowerCase().includes('@everyone')) {
-    alert("Użycie @everyone jest zabronione!");
-    return;
+      // Bardzo podstawowy bypass – możesz rozbudować
+      text = text.replace(/a/gi, '4').replace(/e/gi, '3').replace(/i/gi, '1').replace(/o/gi, '0').replace(/s/gi, '5');
+      tbOutput.value = text;
+    });
   }
 
-  // Cooldown na @here – 2 minuty
-  if (text.toLowerCase().includes('@here')) {
-    if (hereCooldown) {
-      alert("Możesz użyć @here raz na 2 minuty!");
+  if (tbCopy) {
+    tbCopy.addEventListener('click', () => {
+      if (!tbOutput.value.trim()) return;
+      navigator.clipboard.writeText(tbOutput.value).then(() => alert("Skopiowano"));
+    });
+  }
+
+  // ────────────────────────────────
+  //          DISCORD – PRAWdziWY WEBHOOK
+  // ────────────────────────────────
+
+  const WEBHOOK = "https://discord.com/api/webhooks/1475841712600649801/0_cGBvytVMLDouODG1JysXFtNNF8zEyrsGPFaxujB5hY2xX9LgVUeiFAASfVI7Lr-4ls";
+
+  const avatarPrev = document.getElementById('avatarPreview');
+  const avatarIn = document.getElementById('avatarInput');
+  const nickIn = document.getElementById('usernameInput');
+  const msgIn = document.getElementById('messageInput');
+  const sendBtn = document.getElementById('sendMessageBtn');
+  const chat = document.getElementById('chatMessages');
+  const copyInvite = document.querySelector('.copy-invite-btn');
+
+  const DEFAULT_AVATAR = "https://cdn.discordapp.com/attachments/1475479234519760927/1475846320597106739/lv_0_20260224142607.jpg?ex=699ef87e&is=699da6fe&hm=fcd8285a1b8ee154a63334579d360fc6e4d655746bb12f436b67d414ca63e6dd&";
+
+  // Zmiana awatara
+  document.getElementById('avatarUpload').onclick = () => avatarIn.click();
+
+  avatarIn.onchange = e => {
+    const f = e.target.files[0];
+    if (f) {
+      const r = new FileReader();
+      r.onload = ev => avatarPrev.src = ev.target.result;
+      r.readAsDataURL(f);
+    }
+  };
+
+  // Kopiuj invite
+  copyInvite.onclick = () => {
+    navigator.clipboard.writeText("https://discord.gg/YgRqZWt6eu")
+      .then(() => alert("Link skopiowany!"))
+      .catch(() => alert("Błąd – zaznacz ręcznie"));
+  };
+
+  let hereCooldown = 0;
+
+  async function sendDiscordMessage() {
+    let msg = msgIn.value.trim();
+    if (!msg) return;
+
+    if (msg.toLowerCase().includes('@everyone')) {
+      alert("@everyone jest zablokowane!");
       return;
     }
-    hereCooldown = true;
-    setTimeout(() => { hereCooldown = false; }, 120000);
+
+    if (msg.toLowerCase().includes('@here')) {
+      if (Date.now() < hereCooldown) {
+        const left = Math.ceil((hereCooldown - Date.now()) / 60000);
+        alert(`@here możesz użyć za ${left} min`);
+        return;
+      }
+      hereCooldown = Date.now() + 120000;
+    }
+
+    const nick = (nickIn.value.trim() || "Anonim") + " (Project-Hacker)";
+    const ava = avatarPrev.src || DEFAULT_AVATAR;
+
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: msg,
+          username: nick,
+          avatar_url: ava
+        })
+      });
+
+      if (res.ok) {
+        msgIn.value = "";
+        addLocalMessage(nick, msg, ava);
+      } else {
+        alert("Błąd wysyłania (sprawdź konsolę)");
+        console.log(await res.text());
+      }
+    } catch (err) {
+      alert("Brak połączenia");
+      console.error(err);
+    }
   }
 
-  const username = usernameInput.value.trim() || "Anonim";
-  const avatarSrc = avatarPreview.src || defaultAvatar;
-
-  const msgDiv = document.createElement('div');
-  msgDiv.className = 'message';
-
-  msgDiv.innerHTML = `
-    <img class="message-avatar" src="${avatarSrc}" alt="Awatar">
-    <div class="message-content">
-      <div class="message-header">
-        <span class="message-nick">${username}</span>
-        <span class="message-tag">(Project-Hacker)</span>
+  function addLocalMessage(nick, text, ava) {
+    const m = document.createElement("div");
+    m.className = "message";
+    m.innerHTML = `
+      <img class="message-avatar" src="${ava}" alt="">
+      <div class="message-content">
+        <div class="message-header">
+          <span class="message-nick">${nick}</span>
+        </div>
+        <div class="message-text">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
       </div>
-      <div class="message-text">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
-    </div>
-  `;
+    `;
+    chat.appendChild(m);
+    chat.scrollTop = chat.scrollHeight;
+  }
 
-  chatMessages.appendChild(msgDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  messageInput.value = '';
-}
-
-// Symulacja kilku przykładowych wiadomości przy starcie (opcjonalne)
-function addFakeMessage(nick, text, avatar = defaultAvatar) {
-  const msg = document.createElement('div');
-  msg.className = 'message';
-  msg.innerHTML = `
-    <img class="message-avatar" src="${avatar}" alt="Awatar">
-    <div class="message-content">
-      <div class="message-header">
-        <span class="message-nick">${nick}</span>
-        <span class="message-tag">(Project-Hacker)</span>
-      </div>
-      <div class="message-text">${text}</div>
-    </div>
-  `;
-  chatMessages.appendChild(msg);
-}
-
-addFakeMessage("Diddy", "Witajcie w czacie Project-Hacker! 🚀");
-addFakeMessage("Sigma", "Ktoś ma świeże exploity na discord?");
+  sendBtn.onclick = sendDiscordMessage;
+  msgIn.onkeypress = e => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendDiscordMessage();
+    }
+  };
+});
