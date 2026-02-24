@@ -14,6 +14,7 @@
     <li><a href="#home" data-section="home" class="active">Home</a></li>
     <li><a href="#script" data-section="script">Script</a></li>
     <li><a href="#textbypass" data-section="textbypass">TextBypass</a></li>
+    <li><a href="#discord" data-section="discord">Discord</a></li>
     <li><a href="#ai" data-section="ai">AI</a></li>
   </ul>
 </nav>
@@ -30,46 +31,37 @@
 
 <section id="textbypass" class="section">
   <h1>TextBypass</h1>
-  <p>Omijaj filtry, detektory AI (np. GPTZero, Originality.ai), moderacje i inne ograniczenia tekstowe.</p>
+  <p>Omijaj filtry, detektory AI i inne ograniczenia tekstowe.</p>
 
   <div class="bypass-container">
     <textarea id="inputText" placeholder="Wklej tekst do bypassu..." rows="6"></textarea>
 
     <div class="options-grid">
       <label class="option-label">
-        <input type="checkbox" id="useNumbers"> Numbers (leet speak – wariacje z liczbami)
+        <input type="checkbox" id="useNumbers"> Numbers (leet speak)
       </label>
       <label class="option-label">
-        <input type="checkbox" id="useFont"> Font (różne czcionki matematyczne, gothic, bold itp. – losowo)
+        <input type="checkbox" id="useFont"> Font (różne czcionki – losowo)
       </label>
       <label class="option-label">
-        <input type="checkbox" id="useSimilar"> Similar (podobne znaki / homoglyphs + specjalne)
+        <input type="checkbox" id="useSimilar"> Similar (homoglyphy + specjalne)
       </label>
       <label class="option-label">
-        <input type="checkbox" id="useAdvanced"> Advanced (dodatkowe triki: niewidoczne znaki, mieszanie, aby omijać GPTZero/Originality.ai)
+        <input type="checkbox" id="useAdvanced"> Advanced (anty-detektory AI)
       </label>
     </div>
 
     <button id="bypassBtn">BYPASS TEXT</button>
 
-    <textarea id="outputText" placeholder="Tutaj pojawi się zbypassowany tekst..." rows="6" readonly></textarea>
+    <textarea id="outputText" placeholder="Wynik..." rows="6" readonly></textarea>
 
     <button id="copyBtn">Copy 📋</button>
   </div>
 </section>
 
-<section id="ai" class="section">
-  <h1>AI</h1>
-  <p>Prompty, modele, triki, fine-tuning – wszystko co związane z sztuczną inteligencją.</p>
-</section>
-
-<script src="ai_bypass.js"></script>
-<script src="script.js"></script>
-</body>
-</html>
 <section id="discord" class="section">
-  <h1>Discord</h1>
-  <p>Dołącz do naszego serwera i pisz z nami.</p>
+  <h1>Discord – #general</h1>
+  <p>Wiadomości wysyłane są na żywo na serwerze.</p>
 
   <div class="discord-header">
     <div class="invite-box">
@@ -79,24 +71,30 @@
   </div>
 
   <div class="chat-container">
-    <!-- Panel z awatarem i nickiem -->
     <div class="user-panel">
       <div class="avatar-upload" id="avatarUpload">
         <img id="avatarPreview" src="https://cdn.discordapp.com/attachments/1475479234519760927/1475846320597106739/lv_0_20260224142607.jpg?ex=699ef87e&is=699da6fe&hm=fcd8285a1b8ee154a63334579d360fc6e4d655746bb12f436b67d414ca63e6dd&" alt="Awatar">
-        <div class="upload-overlay">Zmień awatar</div>
+        <div class="upload-overlay">Zmień</div>
         <input type="file" id="avatarInput" accept="image/*" hidden>
       </div>
 
-      <input type="text" id="usernameInput" placeholder="Twój nick" value="Project-Hacker">
+      <input type="text" id="usernameInput" value="Project-Hacker" placeholder="Nick">
     </div>
 
-    <!-- Okno czatu -->
     <div class="chat-messages" id="chatMessages"></div>
 
-    <!-- Pole do pisania -->
     <div class="chat-input-area">
       <input type="text" id="messageInput" placeholder="Napisz wiadomość... (bez @everyone)" autocomplete="off">
       <button id="sendMessageBtn">Wyślij</button>
     </div>
   </div>
 </section>
+
+<section id="ai" class="section">
+  <h1>AI</h1>
+  <p>Prompty, modele, triki, fine-tuning – wszystko co związane z AI.</p>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
